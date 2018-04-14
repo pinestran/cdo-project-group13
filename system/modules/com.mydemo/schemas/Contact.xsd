@@ -1,0 +1,42 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<xsd:include schemaLocation="opencms://opencms-xmlcontent.xsd"/>
+
+	<xsd:element name="ContactSchemas" type="OpenCmsContactSchemas"/>
+
+	<xsd:complexType name="OpenCmsContactSchemas">
+		<xsd:sequence>
+			<xsd:element name="ContactSchema" type="OpenCmsContactSchema" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="OpenCmsContactSchema">
+		<xsd:sequence>
+			<xsd:element name="Title" type="OpenCmsString" />
+			<xsd:element name="InstroducePlace" type="OpenCmsHtml" />
+			<xsd:element name="SendMessageButton" type="OpenCmsString"/>
+		</xsd:sequence>
+		<xsd:attribute name="language" type="OpenCmsLocale" use="required"/>
+	</xsd:complexType>
+
+	<xsd:annotation>
+		<xsd:appinfo>
+			<mappings>
+				<mapping element="Title" mapto="property:Title" />
+				<mapping element="Title" mapto="urlName" />
+			</mappings>
+			<defaults>
+				<default element="Title" value="Add a new Contact title here" />
+				<default element="InstroducePlace" value="Add your Instroduce Place text" />
+				<default element="SendMessageButton" value="Send Message" />
+			</defaults>
+			<layouts>
+				<layout element="InstroducePlace" widget="HtmlWidget" configuration="downloadgallery" />
+			</layouts>
+			<validationrules/>
+			<relations/>
+			<searchsettings containerPageOnly="true"/>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+</xsd:schema>
