@@ -1,0 +1,1 @@
+from coins.wsgi import application
