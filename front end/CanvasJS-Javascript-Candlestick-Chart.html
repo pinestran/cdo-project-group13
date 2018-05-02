@@ -1,0 +1,98 @@
+
+ 
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+window.onload = function() { 
+var dps = [];
+var dt1 = [];
+var dt2 = [];
+var dt3 = [];
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	exportEnabled: true,
+	zoomEnabled: true,
+	title: {
+		text: "The Procter & Gamble Company Stock Price"
+	},
+	subtitles: [{
+		text: "2012 to 2017"
+	}],
+	axisX: {
+		valueFormatString: "MMM YYYY"
+	},
+	axisY: {
+		title: "Price (in USD)",
+		includeZero: false,
+		prefix: "$",
+	},
+	data: [{
+		type: "candlestick",
+		color: "#223535",
+		fallingColor: "red",
+		risingColor: "green",
+		xValueFormatString: "MMM YYYY",
+		yValueFormatString: "$#,##0.00",
+		xValueType: "dateTime",
+		dataPoints: dps,
+		fillOpacity:1,
+	},
+	{
+		type: "column",
+		yValueFormatString: "#,### Units",
+		dataPoints: dt1,
+		fillOpacity: 0.5,
+		color: "#b5c8c9"
+	},
+	{
+		type: "line",
+		yValueFormatString: "#,##0.0## Trillion BTU",
+		xValueType: "dateTime",
+		dataPoints: dt2,
+		markerType: "none",
+	},
+	{
+		type: "line",
+		yValueFormatString: "#,##0.0## Trillion BTU",
+		xValueType: "dateTime",
+		dataPoints: dt3,
+		markerType: "none",
+	},
+	]
+});
+$.getJSON("the-procter-gamble-company-stock-price.json", parseData);
+
+function parseData(result) {
+	for (var i = 0; i < result.length; i++) {
+		dps.push({
+			x: result[i].x,
+			y: result[i].y
+		});
+		dt1.push({
+			x: result[i].x,
+			y: result[i].y[1]
+		});
+		dt2.push({
+			x: result[i].x,
+			y: result[i].y[2],
+		});
+		dt3.push({
+			x: result[i].x,
+			y: result[i].y[0],
+		});
+	}
+	chart.render();
+}
+ 
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>     
