@@ -4,7 +4,8 @@ from api import views
 
 urlpatterns = [
     # /api/
-    url(r'^$', views.index, name='index'),
+    url(r'^history/$', views.history, name='history'),
+    url(r'^info/$', views.info, name='info'),
 
     # url(r'^(?P<currencyPair>)/(?P<period>[0-9]+)/(?P<start>[0-9]+)/(?P<end>[0-9]+)/$', views.DetailView, name='detail'),
 

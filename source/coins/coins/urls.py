@@ -21,5 +21,5 @@ from app import views
 urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),
-    path('api/public/history/', include('api.urls')),
+    path('api/public/', include('api.urls')),
 ]
