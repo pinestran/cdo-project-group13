@@ -1,0 +1,501 @@
+@charset "UTF-8";
+/*------------------------------------------------------------
+	Default
+------------------------------------------------------------*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, dialog, figure, footer, header, button,
+hgroup, menu, nav, section,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 1em;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body, table,
+input, textarea, select, option, button,
+h1, h2, h3, h4, h5, h6 {
+  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  line-height: 1.1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+
+table,
+input, textarea, select, option {
+  line-height: 1.1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+:focus {
+  outline: 0;
+}
+
+ins {
+  text-decoration: none;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+img {
+  vertical-align: top;
+}
+
+/*------------------------------------------------------------
+	Text Format
+------------------------------------------------------------*/
+/* text position */
+.taLeft {
+  text-align: left !important;
+}
+
+.taCenter {
+  text-align: center !important;
+}
+
+.taRight {
+  text-align: right !important;
+}
+
+.vTop {
+  vertical-align: top !important;
+}
+
+.vMiddle {
+  vertical-align: middle !important;
+}
+
+/* font weight */
+.fwNormal {
+  font-weight: normal !important;
+}
+
+.fwBold {
+  font-weight: bold !important;
+}
+
+/*------------------------------------------------------------
+	adjustment class ※ no use frequently
+------------------------------------------------------------*/
+.mt0 {
+  margin-top: 0 !important;
+}
+
+.mb0 {
+  margin-bottom: 0 !important;
+}
+
+/*------------------------------------------------------------
+	clearfix（float解除）
+------------------------------------------------------------*/
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+/*------------------------------------------------------------
+	for tracking tag
+------------------------------------------------------------*/
+.trackTags {
+  display: none;
+}
+
+/*------------------------------------------------------------
+	Layout
+------------------------------------------------------------*/
+body {
+  /* ウインドウ幅で横スクロール時に背景が切れるバグ対策でコンテンツと同じ幅を指定 */
+  line-height: 1.5;
+  text-align: center;
+}
+
+#container {
+  margin: 0 auto;
+  min-width: 1080px;
+  background-color: #fff;
+  text-align: left;
+}
+
+.l-main {
+  padding: 15px;
+  font-size: 1.4rem;
+}
+
+.l-main:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+.l-left {
+  width: 72%;
+  float: left;
+}
+
+.l-right {
+  width: 25%;
+  float: right;
+}
+
+/*------------------------------------------------------------
+	header
+------------------------------------------------------------*/
+#header {
+  width: 100%;
+  overflow: hidden;
+  background-color: #0a6970;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#0a6970), color-stop(10%, #086066), color-stop(65%, #06595e));
+  background-image: -webkit-linear-gradient(#0a6970, #086066 10%, #06595e 65%);
+  background-image: linear-gradient(#0a6970, #086066 10%, #06595e 65%);
+  border-bottom: 1px solid #031e21;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#header .header_left {
+  width: 40%;
+  float: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#header .header_left .hlogo {
+  background-color: #042f32;
+  background-image: -webkit-radial-gradient(#042f32, #04272a 90%);
+  background-image: radial-gradient(#042f32, #04272a 90%);
+  display: inline-block;
+  padding: 10px 30px;
+}
+
+#header .header_left .hlogo h1 {
+  font-size: 3.6rem;
+  text-transform: uppercase;
+  color: #2ba0a3;
+}
+
+#header .header_left .gnav {
+  display: inline-block;
+}
+
+#header .header_left .gnav li {
+  display: inline-block;
+  height: 100%;
+  float: left;
+}
+
+#header .header_left .gnav li a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.4rem;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 15px;
+  border-right: 1px solid #031e21;
+}
+
+#header .header_left .gnav li a:hover, #header .header_left .gnav li a.active {
+  background-color: #07494c;
+}
+
+#header .header_right {
+  width: 30%;
+  float: right;
+  text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#header .header_right .message {
+  height: 100%;
+  display: inline-block;
+  padding: 0 15px;
+}
+
+#header .header_right .message p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+#header .header_right .message p a {
+  color: #fff;
+}
+
+#header .header_right .alertstab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  border-left: 1px solid #031e21;
+  padding: 0 15px;
+}
+
+#header .header_right .alertstab i {
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+/*------------------------------------------------------------
+	Navi
+------------------------------------------------------------*/
+#gNavi {
+  margin-bottom: 10px;
+}
+
+#gNavi li {
+  width: 160px;
+  background-color: #efefef;
+  float: left;
+}
+
+#gNavi li a {
+  padding: 10px 0;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+}
+
+/*------------------------------------------------------------
+	Breadcrumbs
+------------------------------------------------------------*/
+#pagePath {
+  margin-bottom: 10px;
+}
+
+#pagePath li {
+  margin-right: 2px;
+  display: inline;
+}
+
+#pagePath li a {
+  margin-right: 5px;
+}
+
+/*------------------------------------------------------------
+	contentc
+------------------------------------------------------------*/
+#conts {
+  width: 580px;
+  float: left;
+}
+
+/*------------------------------------------------------------
+	side
+------------------------------------------------------------*/
+#sideBar {
+  padding: 50px 0;
+  width: 200px;
+  background-color: #efefef;
+  float: right;
+}
+
+/*------------------------------------------------------------
+	footer
+------------------------------------------------------------*/
+#footer {
+  background-color: #031c1e;
+  padding: 60px 0;
+  overflow: hidden;
+  width: 100%;
+  overflow: hidden;
+}
+
+#footer .footer_content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#footer .footer_content .footer_left {
+  width: 60%;
+  float: left;
+}
+
+#footer .footer_content .footer_left .footer_link {
+  width: 30%;
+  float: left;
+}
+
+#footer .footer_content .footer_left .footer_link h3 {
+  font-size: 1.4rem;
+  color: #fff;
+  padding-bottom: 15px;
+}
+
+#footer .footer_content .footer_left .footer_link ul a {
+  color: #43575e;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+#footer .footer_content .footer_right {
+  width: 40%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  float: right;
+  border-left: 3px solid #ccc;
+  padding-left: 10px;
+}
+
+#footer .footer_content .footer_right .flogo h1 {
+  font-size: 3.6rem;
+  text-transform: uppercase;
+  color: #2ba0a3;
+}
+
+#footer .footer_content .footer_right .footer_info p {
+  color: #43575e;
+  font-size: 1.2rem;
+}
+
+#footer .footer_content .footer_right .footer_info p span {
+  color: #fff;
+}
+
+/*------------------------------------------------------------
+	Headline
+------------------------------------------------------------*/
+.c-title1 {
+  font-size: 2.2rem;
+  position: relative;
+  height: 40px;
+  background-color: #b3d5d6;
+  font-size: 22px;
+  line-height: 40px;
+  border-bottom: 1px solid #0b7076;
+  text-transform: uppercase;
+  line-height: 40px;
+  padding-left: 10px;
+}
+
+.c-title2 {
+  font-size: 3.4rem;
+  padding-left: 10px;
+  border-left: 5px solid #ffab06;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.c-title2 small {
+  display: block;
+  color: #0b7076;
+  font-size: 18px;
+  margin-top: 10px;
+}
+/*------------------------------------------------------------
+	Button
+------------------------------------------------------------*/
+.c-button1 {
+  font-size: 11px;
+  color: #3a4449;
+  background-color: white;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#c4d5db));
+  background-image: -webkit-linear-gradient(white, #c4d5db);
+  background-image: linear-gradient(white, #c4d5db);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-radius: 0px;
+  border-width: 1px 1px 1px 0px;
+  border-style: solid;
+  border-color: #91abac;
+  -webkit-border-image: initial;
+       -o-border-image: initial;
+          border-image: initial;
+  padding: 2px 10px;
+}
+
+.c-button1:hover, .c-button1.active {
+  background-color: #e9ad3c;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#e9ad3c), to(#fbeed6));
+  background-image: -webkit-linear-gradient(#e9ad3c, #fbeed6);
+  background-image: linear-gradient(#e9ad3c, #fbeed6);
+  color: #342201;
+}
+
+/*------------------------------------------------------------
+	Table
+------------------------------------------------------------*/
+.c-table1 {
+  border-collapse: collapse;
+  font-size: 1.2rem;
+  width: 100%;
+}
+
+.c-table1 tr:first-child {
+  background-color: #b3d5d6;
+}
+
+.c-table1 tr th {
+  border-right: 1px solid #fff;
+  text-indent: 5px;
+  padding: 5px 0;
+}
+
+.c-table1 tr th:last-child {
+  border-right: none;
+}
+
+.c-table1 tr td {
+  text-indent: 5px;
+  border-bottom: 1px solid #e1eeef;
+  padding: 5px 0;
+}
+
+.c-table1 tr td:first-child {
+  font-weight: 500;
+}
