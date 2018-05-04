@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title></title>
+<link href="assets/css/common.css" rel="stylesheet">
+<link href="assets/css/index.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+window.onload = function() { 
+var dps = [];
+var dt1 = [];
+var dt2 = [];
+var dt3 = [];
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	exportEnabled: true,
+	zoomEnabled: true,
+	title: {
+		text: "The Procter & Gamble Company Stock Price",
+	},
+	subtitles: [{
+		text: "2012 to 2017"
+	}],
+	axisX: {
+		valueFormatString: "HH:mm DD MMM",
+		labelMaxWidth: 50,
+		labelFontSize: 14
+	},
+	axisY: {
+		title: "Price (in USD)",
+		includeZero: false,
+		prefix: "$",
+		labelFontSize: 14,
+		titleFontSize: 20
+	},
+	data: [{
+		type: "candlestick",
+		color: "#223535",
+		fallingColor: "red",
+		risingColor: "green",
+		xValueFormatString: "HH:mm DD MMM",
+		yValueFormatString: "$#,##0.00",
+		xValueType: "dateTime",
+		dataPoints: dps,
+		fillOpacity:1,
+	},
+	]
+});
+		
+}
+$(function(){
+	var url_default = '/api/public/history/?currencyPair=:currency&period=:period&start=:start&end=:end';
+	renderChart();
+	function calcTime(url) {
+		var dt = new Date();
+        var secs = parseInt(dt.getTime()/1000);
+        var start = secs - 2678400;
+        var end = secs;
+        url = url.replace(':start',start);
+        url = url.replace(':end',end);
+        return url;
+	}
+	function renderChart() {
+        var scandlesticks = $('#scandlesticks li .active').data('time');
+        var market = $('#market .c-table1 tr.active').data('url');
+        var url = url_default.replace(':currency',market);
+        url = url.replace(':period',scandlesticks);
+        url=calcTime(url);
+        console.log(url);
+        // $.getJSON("url", parseData);
+    }
+    $('#scandlesticks li button').click(function(){
+    	$('#scandlesticks li button').removeClass("active");
+    	$(this).addClass("active");
+    	renderChart();
+    });
+	$('#market .c-table1 tr').click(function(){
+		$('#market .c-table1 tr').removeClass("active");
+		$(this).addClass("active");
+		renderChart();
+		var small1 = $('.tab .tablinks.active').text();
+		var small2 = $('.c-table1 tr.active td:first-child').text();
+		$('.c-title2 small').html(small1+'/'+small2);
+	});
+});
+
+function parseData(result) {
+	for (var i = 0; i < result.length; i++) {
+		var y =[];
+		y.push(result[i][3],result[i][1],result[i][2],result[i][4]);
+		dps.push({
+			x: result[i][0]*1000,
+			y: y,
+		});
+	}
+	chart.render();
+}
+</script>
+</head>
+<body>
+
+<div id="container">
+	<header id="header">
+		<div class="header_left">
+			<div class="hlogo">
+				<h1>abcd</h1>
+			</div>
+			<ul class="gnav">
+				<li><a href="">exchange</a></li>
+				<li><a href="">margin trading</a></li>
+				<li><a href="">lending</a></li>
+			</ul>
+		</div>
+		<div class="header_right">
+			<div class="message">
+				<p><a href="">Sign in &nbsp</a> or <a href="">&nbsp Create an Account &nbsp</a> to start trading</p>
+			</div>
+			<div class="alertstab">
+				<i class="fa fa-bell"></i>
+			</div>
+		</div>
+	</header>
+	<div class="p-page">
+		<div class="l-main">
+			<div class="l-left">
+				<div class="chart_header">
+					<h2 class="c-title2">
+						Decred Exchange
+						<small></small>
+					</h2>
+					<div class="hilights">
+						<div class="hilights_box">
+							Last Price<span>0.00962637</span>
+						</div>
+						<div class="hilights_box">
+							24hr Change<span>9.27%</span>
+						</div>
+						<div class="hilights_box">
+							24hr High<span>0.01206250</span>
+						</div>
+						<div class="hilights_box">
+							24hr High<span>0.01206250</span>
+						</div>
+					</div>
+				</div>
+				<div id="chartContainer" class="chart_container"></div>
+				<div class="group_btn">
+					<div class="group_zoom">
+						<h3>Zoom: </h3>
+						<ul>
+							<li><button id="zoom6" class="c-button1">6h</button></li>
+							<li><button id="zoom24" class="c-button1">24h</button></li>
+							<li><button id="zoom48" class="c-button1">2d</button></li>
+							<li><button id="zoom96" class="c-button1">4d</button></li>
+							<li><button id="zoom168" class="c-button1">1w</button></li>
+							<li><button id="zoom336" class="c-button1">2w</button></li>
+							<li><button id="zoom744" class="c-button1">1m</button></li>
+							<li><button id="zoom99999" class="c-button1">All</button></li>
+						</ul>
+					</div>
+					<div class="group_candlesticks">
+						<h3>Candlesticks: </h3>
+						<ul id="scandlesticks">
+							<li><button id="chart300" class="c-button1 active" data-time="300">5-min</button></li>
+							<li><button id="chart900" class="c-button1" data-time="900">15-min</button></li>
+							<li><button id="chart1800" class="c-button1" data-time="1800">30-min</button></li>
+							<li><button id="chart7200" class="c-button1" data-time="7200">2-hr</button></li>
+							<li><button id="chart14400" class="c-button1" data-time="14400">4-hr</button></li>
+							<li><button id="chart86400" class="c-button1" data-time="86400">1-day</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="l-right">
+				<div class="market" id="market">
+					<h3 class="c-title1">markets</h3>
+					<div class="tab">
+					  	<button class="tablinks" onclick="openCity(event, 'btc')" id="defaultOpen">BTC</button>
+					  	<button class="tablinks" onclick="openCity(event, 'eth')">ETH</button>
+					  	<button class="tablinks" onclick="openCity(event, 'xrm')">XRM</button>
+					  	<button class="tablinks" onclick="openCity(event, 'usdt')">USDT</button>
+					</div>
+
+					<div id="btc" class="tabcontent">
+					  	<table class="c-table1">
+					  		<tr>
+					  			<th>Coin</th>
+					  			<th>Price</th>
+					  			<th>Volume</th>
+					  			<th>Change</th>
+					  			<th>name</th>
+					  		</tr>
+					  		<tr class="active" data-url="BTC_XRP">
+					  			<td>XRP</td>
+					  			<td>31313132</td>
+					  			<td>21231312</td>
+					  			<td>1313213313</td>
+					  			<td>1231231313</td>
+					  		</tr>
+					  		<tr data-url="BTC_LTC">
+					  			<td>LTC</td>
+					  			<td>123213123</td>
+					  			<td>213213</td>
+					  			<td>1231231</td>
+					  			<td>12321321</td>
+					  		</tr>
+					  		<tr data-url="kjjk">
+					  			<td>132313</td>
+					  			<td>132312313</td>
+					  			<td>123132</td>
+					  			<td>21312313</td>
+					  			<td>321312313</td>
+					  		</tr>
+					  		<tr data-url="sdnad">
+					  			<td>GTN</td>
+					  			<td>eqweqwe</td>
+					  			<td>1321313</td>
+					  			<td>12313213</td>
+					  			<td>213313</td>
+					  		</tr>
+					  		<tr data-url="sahdhj">
+					  			<td>XRM</td>
+					  			<td>123213321</td>
+					  			<td>21312313</td>
+					  			<td>21312323</td>
+					  			<td>12323</td>
+					  		</tr>
+					  		<tr>
+					  			<td>ETH</td>
+					  			<td>45324532</td>
+					  			<td>424254</td>
+					  			<td>45242</td>
+					  			<td>254274252</td>
+					  		</tr>
+					  		<tr>
+					  			<td>XRP</td>
+					  			<td>31313132</td>
+					  			<td>21231312</td>
+					  			<td>1313213313</td>
+					  			<td>1231231313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>LTC</td>
+					  			<td>123213123</td>
+					  			<td>213213</td>
+					  			<td>1231231</td>
+					  			<td>12321321</td>
+					  		</tr>
+					  		<tr>
+					  			<td>132313</td>
+					  			<td>132312313</td>
+					  			<td>123132</td>
+					  			<td>21312313</td>
+					  			<td>321312313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>GTN</td>
+					  			<td>eqweqwe</td>
+					  			<td>1321313</td>
+					  			<td>12313213</td>
+					  			<td>213313</td>
+					  		</tr><tr>
+					  			<td>XRM</td>
+					  			<td>123213321</td>
+					  			<td>21312313</td>
+					  			<td>21312323</td>
+					  			<td>12323</td>
+					  		</tr>
+					  	</table>
+					</div>
+
+					<div id="eth" class="tabcontent">
+					  	<table class="c-table1">
+					  		<tr>
+					  			<td>XRP</td>
+					  			<td>31313132</td>
+					  			<td>21231312</td>
+					  			<td>1313213313</td>
+					  			<td>1231231313</td>
+					  		</tr>
+					  		<tr>
+					  			<th>Coin</th>
+					  			<th>Price</th>
+					  			<th>Volume</th>
+					  			<th>Change</th>
+					  			<th>name</th>
+					  		</tr>
+					  		<tr>
+					  			<td>ETH</td>
+					  			<td>45324532</td>
+					  			<td>424254</td>
+					  			<td>45242</td>
+					  			<td>254274252</td>
+					  		</tr>
+					  		<tr>
+					  			<td>LTC</td>
+					  			<td>123213123</td>
+					  			<td>213213</td>
+					  			<td>1231231</td>
+					  			<td>12321321</td>
+					  		</tr>
+					  		<tr>
+					  			<td>132313</td>
+					  			<td>132312313</td>
+					  			<td>123132</td>
+					  			<td>21312313</td>
+					  			<td>321312313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>GTN</td>
+					  			<td>eqweqwe</td>
+					  			<td>1321313</td>
+					  			<td>12313213</td>
+					  			<td>213313</td>
+					  		</tr><tr>
+					  			<td>XRM</td>
+					  			<td>123213321</td>
+					  			<td>21312313</td>
+					  			<td>21312323</td>
+					  			<td>12323</td>
+					  		</tr>
+					  		<tr>
+					  			<td>ETH</td>
+					  			<td>45324532</td>
+					  			<td>424254</td>
+					  			<td>45242</td>
+					  			<td>254274252</td>
+					  		</tr>
+					  		<tr>
+					  			<td>XRP</td>
+					  			<td>31313132</td>
+					  			<td>21231312</td>
+					  			<td>1313213313</td>
+					  			<td>1231231313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>LTC</td>
+					  			<td>123213123</td>
+					  			<td>213213</td>
+					  			<td>1231231</td>
+					  			<td>12321321</td>
+					  		</tr>
+					  		<tr>
+					  			<td>132313</td>
+					  			<td>132312313</td>
+					  			<td>123132</td>
+					  			<td>21312313</td>
+					  			<td>321312313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>GTN</td>
+					  			<td>eqweqwe</td>
+					  			<td>1321313</td>
+					  			<td>12313213</td>
+					  			<td>213313</td>
+					  		</tr><tr>
+					  			<td>XRM</td>
+					  			<td>123213321</td>
+					  			<td>21312313</td>
+					  			<td>21312323</td>
+					  			<td>12323</td>
+					  		</tr>
+					  	</table>
+					</div>
+
+					<div id="xrm" class="tabcontent">
+					  	<table class="c-table1">
+					  		<tr>
+					  			<th>Coin</th>
+					  			<th>Price</th>
+					  			<th>Volume</th>
+					  			<th>Change</th>
+					  			<th>name</th>
+					  		</tr>
+					  		<tr>
+					  			<td>ETH</td>
+					  			<td>45324532</td>
+					  			<td>424254</td>
+					  			<td>45242</td>
+					  			<td>254274252</td>
+					  		</tr>
+					  		<tr>
+					  			<td>XRP</td>
+					  			<td>31313132</td>
+					  			<td>21231312</td>
+					  			<td>1313213313</td>
+					  			<td>1231231313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>LTC</td>
+					  			<td>123213123</td>
+					  			<td>213213</td>
+					  			<td>1231231</td>
+					  			<td>12321321</td>
+					  		</tr>
+					  		<tr>
+					  			<td>132313</td>
+					  			<td>132312313</td>
+					  			<td>123132</td>
+					  			<td>21312313</td>
+					  			<td>321312313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>GTN</td>
+					  			<td>eqweqwe</td>
+					  			<td>1321313</td>
+					  			<td>12313213</td>
+					  			<td>213313</td>
+					  		</tr><tr>
+					  			<td>XRM</td>
+					  			<td>123213321</td>
+					  			<td>21312313</td>
+					  			<td>21312323</td>
+					  			<td>12323</td>
+					  		</tr>
+					  		<tr>
+					  			<td>ETH</td>
+					  			<td>45324532</td>
+					  			<td>424254</td>
+					  			<td>45242</td>
+					  			<td>254274252</td>
+					  		</tr>
+					  		<tr>
+					  			<td>XRP</td>
+					  			<td>31313132</td>
+					  			<td>21231312</td>
+					  			<td>1313213313</td>
+					  			<td>1231231313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>LTC</td>
+					  			<td>123213123</td>
+					  			<td>213213</td>
+					  			<td>1231231</td>
+					  			<td>12321321</td>
+					  		</tr>
+					  		<tr>
+					  			<td>132313</td>
+					  			<td>132312313</td>
+					  			<td>123132</td>
+					  			<td>21312313</td>
+					  			<td>321312313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>GTN</td>
+					  			<td>eqweqwe</td>
+					  			<td>1321313</td>
+					  			<td>12313213</td>
+					  			<td>213313</td>
+					  		</tr><tr>
+					  			<td>XRM</td>
+					  			<td>123213321</td>
+					  			<td>21312313</td>
+					  			<td>21312323</td>
+					  			<td>12323</td>
+					  		</tr>
+					  	</table>
+					</div>
+					<div id="usdt" class="tabcontent">
+					  	<table class="c-table1">
+					  		<tr>
+					  			<th>Coin</th>
+					  			<th>Price</th>
+					  			<th>Volume</th>
+					  			<th>Change</th>
+					  			<th>name</th>
+					  		</tr>
+					  		<tr>
+					  			<td>ETH</td>
+					  			<td>45324532</td>
+					  			<td>424254</td>
+					  			<td>45242</td>
+					  			<td>254274252</td>
+					  		</tr>
+					  		<tr>
+					  			<td>XRP</td>
+					  			<td>31313132</td>
+					  			<td>21231312</td>
+					  			<td>1313213313</td>
+					  			<td>1231231313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>LTC</td>
+					  			<td>123213123</td>
+					  			<td>213213</td>
+					  			<td>1231231</td>
+					  			<td>12321321</td>
+					  		</tr>
+					  		<tr>
+					  			<td>132313</td>
+					  			<td>132312313</td>
+					  			<td>123132</td>
+					  			<td>21312313</td>
+					  			<td>321312313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>GTN</td>
+					  			<td>eqweqwe</td>
+					  			<td>1321313</td>
+					  			<td>12313213</td>
+					  			<td>213313</td>
+					  		</tr><tr>
+					  			<td>XRM</td>
+					  			<td>123213321</td>
+					  			<td>21312313</td>
+					  			<td>21312323</td>
+					  			<td>12323</td>
+					  		</tr>
+					  		<tr>
+					  			<td>ETH</td>
+					  			<td>45324532</td>
+					  			<td>424254</td>
+					  			<td>45242</td>
+					  			<td>254274252</td>
+					  		</tr>
+					  		<tr>
+					  			<td>XRP</td>
+					  			<td>31313132</td>
+					  			<td>21231312</td>
+					  			<td>1313213313</td>
+					  			<td>1231231313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>LTC</td>
+					  			<td>123213123</td>
+					  			<td>213213</td>
+					  			<td>1231231</td>
+					  			<td>12321321</td>
+					  		</tr>
+					  		<tr>
+					  			<td>132313</td>
+					  			<td>132312313</td>
+					  			<td>123132</td>
+					  			<td>21312313</td>
+					  			<td>321312313</td>
+					  		</tr>
+					  		<tr>
+					  			<td>GTN</td>
+					  			<td>eqweqwe</td>
+					  			<td>1321313</td>
+					  			<td>12313213</td>
+					  			<td>213313</td>
+					  		</tr><tr>
+					  			<td>XRM</td>
+					  			<td>123213321</td>
+					  			<td>21312313</td>
+					  			<td>21312323</td>
+					  			<td>12323</td>
+					  		</tr>
+					  	</table>
+					</div>
+				</div>
+				<div class="notices">
+					<h3 class="c-title1">Notices</h3>
+					<div class="msg">
+						<div class="info">
+							On May 15, we're introducing more compelling, consistent pricing across the board. Read more 
+							<a href="https://poloniex.com/press-releases/2018.05.01-Coming-May-15-consistent-competitive-trading-fees/">
+								<b><u>here</u></b>
+							</a>.
+						</div>
+						<div class="by">Posted by <strong>The Circle Poloniex Team</strong> at 2018-05-01 18:45:56</div>
+					</div>
+					<div class="msg">
+						<div class="info">
+							We have received some questions on the upcoming Monero hard fork at block 1564965. We plan to pause XMR deposits and withdrawals starting at 5pm EST on April 29, and re-enable once the network stabilizes.  We do not plan to support XMV at this time, but you can choose to move your XMR to an exchange that supports multiple Monero forks. Stay tuned for more information on how we plan to approach listings, forks, swaps, and airdrops on Poloniex going forward.
+						</div>
+						<div class="by">
+							Posted by <strong>The Circle Poloniex Team</strong> at 2018-04-27 17:06:40
+						</div>
+					</div>
+					<div class="msg">
+						<div class="info">
+							The Circle-Poloniex Journey: Six Weeks In - https://poloniex.com/press-releases/2018.04.06-Circle-Poloniex-Journey-Six-Weeks-In/
+						</div>
+						<div class="by">
+							Posted by <strong>The Circle Poloniex Team</strong> at 2018-04-06 02:40:00
+						</div>
+					</div>
+					<div class="msg">
+						<div class="info">
+							We've been made aware of false reports coming from the creator of an impostor Poloniex app that the Poloniex platform has been compromised. Please note, the Poloniex platform has NOT been compromised and there is NOT a Poloniex app. This phishing scheme was aimed at various exchanges and the impostor has now chosen to publicly post sensitive user information of the victims - a highly unethical act.
+						</div>
+						<div class="by">Posted by <strong>Poloniex Team</strong> at 2018-03-03 01:15:04</div>
+					</div>
+					<div class="msg">
+						<div class="info">
+							Big news from the Poloniex team today! - https://poloniex.com/press-releases/2018.02.26-Poloniex-joins-Circle/
+						</div>
+						<div class="by">Posted by <strong>ultim8um</strong> at 2018-02-26 14:30:21</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer">
+		<div class="footer_content">
+			<div class="footer_left">
+				<div class="footer_link">
+					<h3>ABOUT POLONIEX</h3>
+					<ul>
+						<li><a href="">Contact Us</a></li>
+						<li><a href="">Fees</a></li>
+						<li><a href="">Privacy Policy</a></li>
+						<li><a href="">Terms of Use</a></li>
+					</ul>
+				</div>
+				<div class="footer_link">
+					<h3>SUPPORT</h3>
+					<ul>
+						<li><a href="">Contact Support</a></li>
+						<li><a href="">Support Resources</a></li>
+						<li><a href="">Switch to Mobile Site</a></li>
+					</ul>
+				</div>
+				<div class="footer_link">
+					<h3>NEWS</h3>
+					<ul>
+						<li><a href="">Press Releases</a></li>
+						<li><a href="">Twitter</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer_right">
+				<div class="flogo">
+					<h1>Abcd</h1>
+				</div>
+				<div class="footer_info">
+					<p>Server time: <span>2018-05-04 03:55</span> UTC</p>
+					<p>Users currently online: <span>10955</span></p>
+					<p>24hr Volume: <span>10680</span> BTC / <span>4682</span> ETH / <span>395</span> XMR / <span>52173045</span> USDT</p>
+					<p>© Poloniex, LLC. 2018 - Boston, MA, USA</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+    var small1 = $('.tab .tablinks.active').text();
+	var small2 = $('.c-table1 tr.active td:first-child').text();
+	$('.c-title2 small').html(small1+'/'+small2);
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+</body>
+</html>
