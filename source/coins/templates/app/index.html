@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block content %}
+	{% include 'app/_header.html' %}
+
+	<div class="p-page">
+		<div class="l-main">
+			<div class="l-left">
+				<div class="chart_header">
+					<h2 class="c-title2">
+						Decred Exchange
+						<small></small>
+					</h2>
+					<div class="hilights">
+						<div class="hilights_box">
+							Last Price<span>0.00962637</span>
+						</div>
+						<div class="hilights_box">
+							24hr Change<span>9.27%</span>
+						</div>
+						<div class="hilights_box">
+							24hr High<span>0.01206250</span>
+						</div>
+						<div class="hilights_box">
+							24hr High<span>0.01206250</span>
+						</div>
+					</div>
+				</div>
+				<div id="chartContainer" class="chart_container"></div>
+				<div class="group_btn">
+					<div class="group_zoom">
+						<h3>Zoom: </h3>
+						<ul>
+							<li><button class="c-button1">6h</button></li>
+							<li><button class="c-button1">24h</button></li>
+							<li><button class="c-button1">2d</button></li>
+							<li><button class="c-button1">4d</button></li>
+							<li><button class="c-button1">1w</button></li>
+							<li><button class="c-button1">2w</button></li>
+							<li><button class="c-button1">1m</button></li>
+							<li><button class="c-button1">All</button></li>
+						</ul>
+					</div>
+					<div class="group_candlesticks">
+						<h3>Candlesticks: </h3>
+						<ul id="scandlesticks">
+							<li><button class="c-button1 active" data-time="300">5-min</button></li>
+							<li><button class="c-button1" data-time="900">15-min</button></li>
+							<li><button class="c-button1" data-time="1800">30-min</button></li>
+							<li><button class="c-button1" data-time="7200">2-hr</button></li>
+							<li><button class="c-button1" data-time="14400">4-hr</button></li>
+							<li><button class="c-button1" data-time="86400">1-day</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			{% include 'app/_sidebar.html' %}
+		</div>
+	</div>
+
+
+
+	{% include 'app/_footer.html' %}
+
+<script src="{% static "vendors/canvasjs.min.js" %}"></script>
+<script src="{% static "js/app.js" %}"></script>
+
+{% endblock %}

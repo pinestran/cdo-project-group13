@@ -78,22 +78,22 @@ WSGI_APPLICATION = 'coins.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.oracle',
-    #     'NAME': 'icoin',
-    #     'USER': 'SYSTEM',
-    #     'PASSWORD': 'Nhat1994',
-    #     'HOST':'127.0.0.1',
-    #     'PORT':'1521'
-    # },
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'COINS',
-        'USER': 'nhatnt',
+        'NAME': 'ICOIN',
+        'USER': 'SYSTEM',
         'PASSWORD': 'Nhat1994',
-        'HOST': 'nhatngo.caoaojnr0xxq.us-east-2.rds.amazonaws.com',
-        'PORT': '1521'
+        'HOST':'127.0.0.1',
+        'PORT':'1521'
     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.oracle',
+    #     'NAME': 'COINS',
+    #     'USER': 'nhatnt',
+    #     'PASSWORD': 'Nhat1994',
+    #     'HOST': 'nhatngo.caoaojnr0xxq.us-east-2.rds.amazonaws.com',
+    #     'PORT': '1521'
+    # },
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -139,7 +139,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = [ BASE_DIR + "/public/assets", ]
-STATIC_ROOT = BASE_DIR + "/public/static"
+STATICFILES_DIRS = [ BASE_DIR + "/public/static", ]
+# STATIC_ROOT = BASE_DIR + "/public/static"
 MEDIA_ROOT = BASE_DIR + "/public/media"
 
